@@ -1,36 +1,38 @@
+import './categories.styles.scss';
+
 function App() {
   const categories = [
     {
       id: 1,
-      title: 'Hats',
-      img: '',
+      title: 'hats',
+      imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
     },
     {
       id: 2,
-      title: 'Jackets',
-      img: '',
+      title: 'jackets',
+      imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
     },
     {
       id: 3,
-      title: 'Sneeakers',
-      img: '',
+      title: 'sneakers',
+      imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
     },
     {
       id: 4,
-      title: 'Mens',
-      img: '',
+      title: 'womens',
+      imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
     },
     {
       id: 5,
-      title: 'Womens',
-      img: '',
+      title: 'mens',
+      imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
     },
   ];
 
   return (
     <div className='categories-container'>
-      {categories.map(({ id, title }) => (
-        <CategoryComponent key={id} title={title} />
+      {categories.map(({ id, title, imageUrl }) => (
+        <CategoryComponent key={id} title={title} imageUrl={imageUrl} />
       ))}
     </div>
   );
@@ -38,10 +40,13 @@ function App() {
 
 export default App;
 
-const CategoryComponent = ({ img, title }) => {
+const CategoryComponent = ({ imageUrl, title }) => {
   return (
     <div className='category-container'>
-      <div className='background-image'></div>
+      <div
+        className='background-image'
+        style={{ backgroundImage: `url(${imageUrl})` }}
+      ></div>
       <div className='category-body-container'>
         <h2>{title}</h2>
         <p>Shop Now</p>
