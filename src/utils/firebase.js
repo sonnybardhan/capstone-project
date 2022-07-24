@@ -1,9 +1,9 @@
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
-  signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
 } from 'firebase/auth';
 
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
@@ -20,26 +20,32 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
+// console.log('firebaseApp: ', firebaseApp);
 
-provider.setCustomParameters({
+const googleProvider = new GoogleAuthProvider();
+
+googleProvider.setCustomParameters({
   prompt: 'select_account',
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
 
 export const db = getFirestore();
 
-export const createUserDocFromAuth = async (userAuth) => {
-  const userDocRef = doc(db, 'users', userAuth.uid);
-  console.log(userDocRef);
+export const createUserDocFromAuth = async (
+  userAuth,
+  additionalDetails = {}
+) => {
+  if (!userAuth) return;
 
+  const userDocRef = doc(db, 'users', userAuth.uid);
   const userSnapShot = await getDoc(userDocRef);
-  console.log(userSnapShot);
-  console.log('exists: ', userSnapShot.exists());
 
   if (!userSnapShot.exists()) {
+    console.log('User does not exist as yet!');
+    console.log('creating user reference ... ');
     const { displayName, email } = userAuth;
     const createdAt = new Date();
 
@@ -48,10 +54,18 @@ export const createUserDocFromAuth = async (userAuth) => {
         displayName,
         email,
         createdAt,
+        ...additionalDetails,
       });
+      console.log('User created!');
     } catch (err) {
       console.log('There was an error in creating the user! ', err.message);
     }
   }
   return userDocRef;
+};
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+
+  return await createUserWithEmailAndPassword(auth, email, password);
 };
