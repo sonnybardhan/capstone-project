@@ -16,8 +16,8 @@ const defaultFormFields = {
 
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { displayName, email, password, confirmPassword } = formFields;
   const [disableSubmit, setDisableSubmit] = useState(false);
+  const { displayName, email, password, confirmPassword } = formFields;
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -76,8 +76,8 @@ const SignUpForm = () => {
       <form onSubmit={handleSubmit}>
         <FormInput
           label='Display Name'
-          htmlFor='displayName'
-          id='displayName'
+          htmlFor='sign-up-displayName'
+          id='sign-up-displayName'
           name='displayName'
           type='text'
           required
@@ -86,8 +86,8 @@ const SignUpForm = () => {
         />
         <FormInput
           label='Email'
-          htmlFor='email'
-          id='email'
+          htmlFor='sign-up-email'
+          id='sign-up-email'
           name='email'
           type='email'
           required
@@ -96,8 +96,8 @@ const SignUpForm = () => {
         />
         <FormInput
           label='Password'
-          htmlFor='password'
-          id='password'
+          htmlFor='sign-up-password'
+          id='sign-up-password'
           name='password'
           type='password'
           required
@@ -107,8 +107,8 @@ const SignUpForm = () => {
         />
         <FormInput
           label='Confirm Password'
-          htmlFor='confirmPassword'
-          id='confirmPassword'
+          htmlFor='sign-up-confirmPassword'
+          id='sign-up-confirmPassword'
           name='confirmPassword'
           type='password'
           required
@@ -118,7 +118,7 @@ const SignUpForm = () => {
         />
 
         <Button type='submit' disabled={disableSubmit} value='Submit'>
-          Submit
+          Sign Up
         </Button>
       </form>
     </div>
