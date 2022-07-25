@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import FormInput from '../form-input/form-input';
+import Button from '../button/button';
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocFromAuth,
 } from '../../utils/firebase';
-import './sign-up-form.scss';
+import './sign-up-form.styles.scss';
 
 const defaultFormFields = {
   displayName: '',
@@ -115,9 +116,10 @@ const SignUpForm = () => {
           value={confirmPassword}
           onChange={handleChange}
         />
-        <button type='submit' disabled={disableSubmit}>
+
+        <Button type='submit' disabled={disableSubmit} value='Submit'>
           Submit
-        </button>
+        </Button>
       </form>
     </div>
   );
