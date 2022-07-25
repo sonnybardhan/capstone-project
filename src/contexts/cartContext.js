@@ -3,8 +3,6 @@ import { createContext, useState } from 'react';
 export const CartContext = createContext({});
 
 const addToCart = (cartItems, productToAdd) => {
-  // setCartItemCount((previousCount) => previousCount + 1);
-
   if (!cartItems.length) {
     return [{ ...productToAdd, quantity: 1 }];
   }
@@ -42,6 +40,41 @@ export const CartContextProvider = ({ children }) => {
     );
   };
 
+  const calculateTotal = () => {
+    return cartItems.reduce(
+      (total, { quantity, price }) => total + quantity * price,
+      0
+    );
+  };
+
+  const incrementQuantity = (id) => {
+    const updatedCartItems = [...cartItems];
+    const productIdx = updatedCartItems.findIndex(
+      (cartItem) => cartItem.id === id
+    );
+    updatedCartItems[productIdx].quantity += 1;
+    setCartItems(updatedCartItems);
+  };
+
+  const decrementQuantity = (id) => {
+    const updatedCartItems = [...cartItems];
+    const productIdx = updatedCartItems.findIndex(
+      (cartItem) => cartItem.id === id
+    );
+
+    if (updatedCartItems[productIdx].quantity > 1) {
+      updatedCartItems[productIdx].quantity -= 1;
+      setCartItems(updatedCartItems);
+    } else {
+      removeProduct(id);
+    }
+  };
+
+  const removeProduct = (id) => {
+    const updatedCartItems = cartItems.filter((item) => item.id !== id);
+    setCartItems(updatedCartItems);
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -50,6 +83,10 @@ export const CartContextProvider = ({ children }) => {
         cartIsOpen,
         toggleCartIsOpen,
         getCartItemCount,
+        removeProduct,
+        incrementQuantity,
+        decrementQuantity,
+        calculateTotal,
       }}
     >
       {children}
