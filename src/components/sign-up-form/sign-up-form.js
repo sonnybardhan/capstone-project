@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import FormInput from '../form-input/form-input';
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocFromAuth,
 } from '../../utils/firebase';
+import './sign-up-form.scss';
 
 const defaultFormFields = {
   displayName: '',
@@ -67,29 +69,34 @@ const SignUpForm = () => {
   };
 
   return (
-    <div>
-      <h1>Sign up with your email and password</h1>
+    <div className='sign-up-container'>
+      <h2>Don't have an account?</h2>
+      <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
-        <label htmlFor=''>Display Name</label>
-        <input
+        <FormInput
+          label='Display Name'
+          htmlFor='displayName'
+          id='displayName'
           name='displayName'
           type='text'
           required
           value={displayName}
           onChange={handleChange}
         />
-
-        <label htmlFor=''>Email</label>
-        <input
+        <FormInput
+          label='Email'
+          htmlFor='email'
+          id='email'
           name='email'
           type='email'
           required
           value={email}
           onChange={handleChange}
         />
-
-        <label htmlFor=''>Password</label>
-        <input
+        <FormInput
+          label='Password'
+          htmlFor='password'
+          id='password'
           name='password'
           type='password'
           required
@@ -97,9 +104,10 @@ const SignUpForm = () => {
           minLength='6'
           onChange={handleChange}
         />
-
-        <label htmlFor=''>Confirm Password</label>
-        <input
+        <FormInput
+          label='Confirm Password'
+          htmlFor='confirmPassword'
+          id='confirmPassword'
           name='confirmPassword'
           type='password'
           required
@@ -107,7 +115,6 @@ const SignUpForm = () => {
           value={confirmPassword}
           onChange={handleChange}
         />
-
         <button type='submit' disabled={disableSubmit}>
           Submit
         </button>
