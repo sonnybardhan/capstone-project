@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { UserContext } from '../../contexts/userContext';
 import FormInput from '../form-input/form-input';
 import Button from '../button/button';
 import './sign-in-form.styles.scss';
@@ -16,7 +17,7 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [disableSubmit, setDisableSubmit] = useState(false);
-
+  const { setUser } = useContext(UserContext);
   const { email, password } = formFields;
 
   const resetFormFields = () => {
@@ -41,13 +42,12 @@ const SignInForm = () => {
 
     try {
       setDisableSubmit(true);
-      console.log('button disabled.');
-
       const response = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
       console.log('response: ', response);
+      setUser(response.user);
       popupMessage('Sign in successful!');
       resetFormFields();
     } catch (err) {
@@ -64,7 +64,6 @@ const SignInForm = () => {
       }
     }
     setDisableSubmit(false);
-    console.log('button enabled.');
   };
 
   const handleChange = (e) => {
