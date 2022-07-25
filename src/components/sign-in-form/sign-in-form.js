@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react';
-import { UserContext } from '../../contexts/userContext';
+import React, { useState } from 'react';
 import FormInput from '../form-input/form-input';
 import Button from '../button/button';
 import './sign-in-form.styles.scss';
@@ -17,7 +16,6 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [disableSubmit, setDisableSubmit] = useState(false);
-  const { setUser } = useContext(UserContext);
   const { email, password } = formFields;
 
   const resetFormFields = () => {
@@ -26,13 +24,10 @@ const SignInForm = () => {
 
   const popupMessage = (msg, delay = 0) => {
     if (!msg) return;
-    setTimeout(() => {
-      alert(msg);
-    }, delay);
+    console.log(msg);
   };
 
   const handleSubmit = async (e) => {
-    console.log('BUTTON PRESSED.');
     e.preventDefault();
 
     if (!email || !password) {
@@ -42,12 +37,7 @@ const SignInForm = () => {
 
     try {
       setDisableSubmit(true);
-      const response = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      console.log('response: ', response);
-      setUser(response.user);
+      await signInAuthUserWithEmailAndPassword(email, password);
       popupMessage('Sign in successful!');
       resetFormFields();
     } catch (err) {
@@ -76,9 +66,7 @@ const SignInForm = () => {
   };
 
   const signInWithGoogle = async () => {
-    const response = await signInWithGooglePopup();
-    console.log(response);
-    await createUserDocFromAuth(response.user);
+    await signInWithGooglePopup();
   };
 
   return (

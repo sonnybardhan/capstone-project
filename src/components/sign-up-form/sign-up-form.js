@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import FormInput from '../form-input/form-input';
 import Button from '../button/button';
-import { UserContext } from '../../contexts/userContext';
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocFromAuth,
@@ -19,7 +18,6 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [disableSubmit, setDisableSubmit] = useState(false);
   const { displayName, email, password, confirmPassword } = formFields;
-  const { setUser } = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -27,7 +25,6 @@ const SignUpForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('submit disabled');
 
     if (password !== confirmPassword) {
       console.log('The password and confirm password fields should match.');
@@ -40,11 +37,9 @@ const SignUpForm = () => {
         email,
         password
       );
-      console.log('user: ', user);
       await createUserDocFromAuth(user, {
         displayName,
       });
-      setUser(user);
     } catch (err) {
       if (err.code === 'auth/email-already-in-use') {
         setTimeout(() => {

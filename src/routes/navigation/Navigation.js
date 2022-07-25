@@ -3,6 +3,7 @@ import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 import './navigation.styles.scss';
 import { UserContext } from '../../contexts/userContext';
 import { useContext } from 'react';
+import { signOutUser } from '../../utils/firebase';
 
 const Navigation = () => {
   const { user } = useContext(UserContext);
@@ -17,9 +18,15 @@ const Navigation = () => {
           <Link to='/shop' className='nav-link'>
             Shop
           </Link>
-          <Link to='/auth' className='nav-link'>
-            {user ? 'Sign Out' : 'Sign In'}
-          </Link>
+          {user ? (
+            <span className='nav-link' onClick={signOutUser}>
+              Sign Out
+            </span>
+          ) : (
+            <Link to='/auth' className='nav-link'>
+              Sign In
+            </Link>
+          )}
         </div>
       </div>
       <Outlet />
