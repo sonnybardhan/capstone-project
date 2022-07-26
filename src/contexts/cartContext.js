@@ -47,15 +47,6 @@ export const CartContextProvider = ({ children }) => {
     );
   };
 
-  const incrementQuantity = (id) => {
-    const updatedCartItems = [...cartItems];
-    const productIdx = updatedCartItems.findIndex(
-      (cartItem) => cartItem.id === id
-    );
-    updatedCartItems[productIdx].quantity += 1;
-    setCartItems(updatedCartItems);
-  };
-
   const decrementQuantity = (id) => {
     const updatedCartItems = [...cartItems];
     const productIdx = updatedCartItems.findIndex(
@@ -71,8 +62,7 @@ export const CartContextProvider = ({ children }) => {
   };
 
   const removeProduct = (id) => {
-    const updatedCartItems = cartItems.filter((item) => item.id !== id);
-    setCartItems(updatedCartItems);
+    setCartItems(cartItems.filter((item) => item.id !== id));
   };
 
   return (
@@ -84,7 +74,6 @@ export const CartContextProvider = ({ children }) => {
         toggleCartIsOpen,
         getCartItemCount,
         removeProduct,
-        incrementQuantity,
         decrementQuantity,
         calculateTotal,
       }}
