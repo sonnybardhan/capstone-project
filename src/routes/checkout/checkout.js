@@ -36,17 +36,3 @@ const Checkout = () => {
 };
 
 export default Checkout;
-
-{
-  /* <div key={id}>
-              <img src={imageUrl} alt={name} />
-              <span>{name}</span>
-              <span>
-                <button onClick={() => decrementQuantity(id)}>-</button>
-                {quantity}
-                <button onClick={() => incrementQuantity(id)}>+</button>
-              </span>
-              <span>{price}</span>
-              <button onClick={() => removeProduct(id)}>X</button>
-            </div> */
-}
