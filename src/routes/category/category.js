@@ -14,20 +14,18 @@ const Category = () => {
   }, [category, categories]);
 
   return (
-    <div>
-      <h2 style={{ textAlign: 'center' }}>{category.toUpperCase()}</h2>
+    <>
+      <h2 className='category-title'>{category.toUpperCase()}</h2>
       {products !== undefined ? (
-        <div className='products-container'>
+        <div className='category-container'>
           {products.map((product) => {
             return <ProductCard key={product.id} product={product} />;
           })}
         </div>
       ) : (
-        <h3 style={{ marginTop: '100px', textAlign: 'center' }}>
-          {'loading ... '}
-        </h3>
+        <h3 className='category-products-loading'>loading ... </h3>
       )}
-    </div>
+    </>
   );
 };
 

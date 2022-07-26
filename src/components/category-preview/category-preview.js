@@ -1,21 +1,21 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './category-preview.styles.scss';
 import ProductCard from '../product-card/product-card';
 
 const CategoryPreview = ({ title, products }) => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate(`/shop/${title}`);
-  };
+  // const handleClick = () => {
+  //   navigate(`/shop/${title}`);
+  // };
 
   return (
     <div className='category-preview-container'>
       <h2>
-        <span style={{ cursor: 'pointer' }} onClick={handleClick}>
+        <Link to={`/shop/${title}`} className='title'>
           {title.toUpperCase()}
-        </span>
+        </Link>
       </h2>
       <div className='preview'>
         {products.slice(0, 4).map((product) => (
