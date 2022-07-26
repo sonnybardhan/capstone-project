@@ -1,15 +1,9 @@
 import React from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './category-preview.styles.scss';
 import ProductCard from '../product-card/product-card';
 
 const CategoryPreview = ({ title, products }) => {
-  const navigate = useNavigate();
-
-  // const handleClick = () => {
-  //   navigate(`/shop/${title}`);
-  // };
-
   return (
     <div className='category-preview-container'>
       <h2>
