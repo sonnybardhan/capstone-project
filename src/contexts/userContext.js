@@ -4,6 +4,7 @@ import {
   onAuthStateChangedListener,
   createUserDocFromAuth,
 } from '../utils/firebase';
+import { createAction } from '../utils/reducer.utils';
 
 export const UserContext = createContext({});
 
@@ -33,11 +34,7 @@ export const UserContextProvider = ({ children }) => {
       if (!user) {
         createUserDocFromAuth(user);
       }
-      dispatch({
-        type: userActions.SET_USER,
-        // type: 'SET_USER',
-        payload: user,
-      });
+      dispatch(createAction(userActions.SET_USER, user));
     });
     return unsubscribe;
   }, []);

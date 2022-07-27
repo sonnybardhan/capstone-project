@@ -1,5 +1,6 @@
 import { createContext, useEffect, useReducer } from 'react';
 import { getCategoriesAndDocuments } from '../utils/firebase';
+import { createAction } from '../utils/reducer.utils';
 
 export const CategoriesContext = createContext({});
 
@@ -30,11 +31,7 @@ export const CategoriesContextProvider = ({ children }) => {
 
   const getCategories = async () => {
     const categoryMap = await getCategoriesAndDocuments();
-    dispatch({
-      type: categoriesActions.SET_CATEGORIES,
-      // type: 'SET_CATEGORIES',
-      payload: categoryMap,
-    });
+    dispatch(createAction(categoriesActions.SET_CATEGORIES, categoryMap));
   };
 
   useEffect(() => {

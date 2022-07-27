@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useReducer } from 'react';
 import { createContext } from 'react';
+import { createAction } from '../utils/reducer.utils';
 
 export const CartContext = createContext({});
 
@@ -33,7 +34,7 @@ const addToCart = (cartItems, productToAdd) => {
 const cartReducer = (state, action) => {
   switch (action.type) {
     case 'SET_CART_ITEMS':
-      return { ...state, cartItems: [...action.payload] };
+      return { ...state, cartItems: action.payload };
     case 'SET_CART_IS_OPEN':
       return { ...state, cartIsOpen: !state.cartIsOpen };
     case 'SET_TOTAL_CART_ITEMS':
@@ -58,46 +59,40 @@ export const CartContextProvider = ({ children }) => {
   const { cartItems, cartIsOpen, totalCartItems, totalCartAmount } = state;
 
   const toggleCartIsOpen = () => {
-    dispatch({ type: cartActions.SET_CART_IS_OPEN });
+    dispatch(createAction(cartActions.SET_CART_IS_OPEN));
   };
-  // const toggleCartIsOpen = () => {
-  //   dispatch({ type: 'SET_CART_IS_OPEN' });
-  // };
 
   const addItemToCart = (productToAdd) => {
-    dispatch({
-      type: cartActions.SET_CART_ITEMS,
-      payload: addToCart(cartItems, productToAdd),
-    });
+    dispatch(
+      createAction(
+        cartActions.SET_CART_ITEMS,
+        addToCart(cartItems, productToAdd)
+      )
+    );
   };
 
-  // const addItemToCart = (productToAdd) => {
-  //   dispatch({
-  //     type: 'SET_CART_ITEMS',
-  //     payload: addToCart(cartItems, productToAdd),
-  //   });
-  // };
-
   const getCartItemCount = () => {
-    dispatch({
-      type: cartActions.SET_TOTAL_CART_ITEMS,
-      // type: 'SET_TOTAL_CART_ITEMS',
-      payload: cartItems.reduce(
-        (total, currentItem) => total + currentItem.quantity,
-        0
-      ),
-    });
+    dispatch(
+      createAction(
+        cartActions.SET_TOTAL_CART_ITEMS,
+        cartItems.reduce(
+          (total, currentItem) => total + currentItem.quantity,
+          0
+        )
+      )
+    );
   };
 
   const calculateTotal = () => {
-    dispatch({
-      type: cartActions.SET_TOTAL_AMOUNT,
-      // type: 'SET_TOTAL_AMOUNT',
-      payload: cartItems.reduce(
-        (total, { quantity, price }) => total + quantity * price,
-        0
-      ),
-    });
+    dispatch(
+      createAction(
+        cartActions.SET_TOTAL_AMOUNT,
+        cartItems.reduce(
+          (total, { quantity, price }) => total + quantity * price,
+          0
+        )
+      )
+    );
   };
 
   useEffect(() => {
@@ -112,22 +107,19 @@ export const CartContextProvider = ({ children }) => {
     );
     if (updatedCartItems[productIdx].quantity > 1) {
       updatedCartItems[productIdx].quantity -= 1;
-      dispatch({
-        type: cartActions.SET_CART_ITEMS,
-        // type: 'SET_CART_ITEMS',
-        payload: updatedCartItems,
-      });
+      dispatch(createAction(cartActions.SET_CART_ITEMS, updatedCartItems));
     } else {
       removeProduct(id);
     }
   };
 
   const removeProduct = (id) => {
-    dispatch({
-      // type: 'SET_CART_ITEMS',
-      type: cartActions.SET_CART_ITEMS,
-      payload: cartItems.filter((item) => item.id !== id),
-    });
+    dispatch(
+      createAction(
+        cartActions.SET_CART_ITEMS,
+        cartItems.filter((item) => item.id !== id)
+      )
+    );
   };
 
   return (
