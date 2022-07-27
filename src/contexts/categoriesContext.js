@@ -3,6 +3,10 @@ import { getCategoriesAndDocuments } from '../utils/firebase';
 
 export const CategoriesContext = createContext({});
 
+const categoriesActions = {
+  SET_CATEGORIES: 'SET_CATEGORIES',
+};
+
 const categoriesReducer = (state, action) => {
   switch (action.type) {
     case 'SET_CATEGORIES':
@@ -12,14 +16,14 @@ const categoriesReducer = (state, action) => {
   }
 };
 
-const intitialCategoriesState = {
+const INITIAL_CATEGORIES_STATE = {
   categories: {},
 };
 
 export const CategoriesContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(
     categoriesReducer,
-    intitialCategoriesState
+    INITIAL_CATEGORIES_STATE
   );
 
   const { categories } = state;
@@ -27,7 +31,8 @@ export const CategoriesContextProvider = ({ children }) => {
   const getCategories = async () => {
     const categoryMap = await getCategoriesAndDocuments();
     dispatch({
-      type: 'SET_CATEGORIES',
+      type: categoriesActions.SET_CATEGORIES,
+      // type: 'SET_CATEGORIES',
       payload: categoryMap,
     });
   };

@@ -4,6 +4,13 @@ import { createContext } from 'react';
 
 export const CartContext = createContext({});
 
+const cartActions = {
+  SET_CART_ITEMS: 'SET_CART_ITEMS',
+  SET_CART_IS_OPEN: 'SET_CART_IS_OPEN',
+  SET_TOTAL_CART_ITEMS: 'SET_TOTAL_CART_ITEMS',
+  SET_TOTAL_AMOUNT: 'SET_TOTAL_AMOUNT',
+};
+
 const addToCart = (cartItems, productToAdd) => {
   if (!cartItems.length) {
     return [{ ...productToAdd, quantity: 1 }];
@@ -38,7 +45,7 @@ const cartReducer = (state, action) => {
   }
 };
 
-const initialCartState = {
+const INITIAL_STATE = {
   cartItems: [],
   cartIsOpen: false,
   totalCartItems: 0,
@@ -46,24 +53,35 @@ const initialCartState = {
 };
 
 export const CartContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, initialCartState);
+  const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
 
   const { cartItems, cartIsOpen, totalCartItems, totalCartAmount } = state;
 
   const toggleCartIsOpen = () => {
-    dispatch({ type: 'SET_CART_IS_OPEN' });
+    dispatch({ type: cartActions.SET_CART_IS_OPEN });
   };
+  // const toggleCartIsOpen = () => {
+  //   dispatch({ type: 'SET_CART_IS_OPEN' });
+  // };
 
   const addItemToCart = (productToAdd) => {
     dispatch({
-      type: 'SET_CART_ITEMS',
+      type: cartActions.SET_CART_ITEMS,
       payload: addToCart(cartItems, productToAdd),
     });
   };
 
+  // const addItemToCart = (productToAdd) => {
+  //   dispatch({
+  //     type: 'SET_CART_ITEMS',
+  //     payload: addToCart(cartItems, productToAdd),
+  //   });
+  // };
+
   const getCartItemCount = () => {
     dispatch({
-      type: 'SET_TOTAL_CART_ITEMS',
+      type: cartActions.SET_TOTAL_CART_ITEMS,
+      // type: 'SET_TOTAL_CART_ITEMS',
       payload: cartItems.reduce(
         (total, currentItem) => total + currentItem.quantity,
         0
@@ -73,7 +91,8 @@ export const CartContextProvider = ({ children }) => {
 
   const calculateTotal = () => {
     dispatch({
-      type: 'SET_TOTAL_AMOUNT',
+      type: cartActions.SET_TOTAL_AMOUNT,
+      // type: 'SET_TOTAL_AMOUNT',
       payload: cartItems.reduce(
         (total, { quantity, price }) => total + quantity * price,
         0
@@ -94,7 +113,8 @@ export const CartContextProvider = ({ children }) => {
     if (updatedCartItems[productIdx].quantity > 1) {
       updatedCartItems[productIdx].quantity -= 1;
       dispatch({
-        type: 'SET_CART_ITEMS',
+        type: cartActions.SET_CART_ITEMS,
+        // type: 'SET_CART_ITEMS',
         payload: updatedCartItems,
       });
     } else {
@@ -104,7 +124,8 @@ export const CartContextProvider = ({ children }) => {
 
   const removeProduct = (id) => {
     dispatch({
-      type: 'SET_CART_ITEMS',
+      // type: 'SET_CART_ITEMS',
+      type: cartActions.SET_CART_ITEMS,
       payload: cartItems.filter((item) => item.id !== id),
     });
   };

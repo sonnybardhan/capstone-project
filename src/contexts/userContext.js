@@ -7,6 +7,10 @@ import {
 
 export const UserContext = createContext({});
 
+const userActions = {
+  SET_USER: 'SET_USER',
+};
+
 const userReducer = (state, action) => {
   switch (action.type) {
     case 'SET_USER':
@@ -16,12 +20,12 @@ const userReducer = (state, action) => {
   }
 };
 
-const initialUserState = {
+const INITIAL_USER_STATE = {
   user: null,
 };
 
 export const UserContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(userReducer, initialUserState);
+  const [state, dispatch] = useReducer(userReducer, INITIAL_USER_STATE);
   const { user } = state;
 
   useEffect(() => {
@@ -30,7 +34,8 @@ export const UserContextProvider = ({ children }) => {
         createUserDocFromAuth(user);
       }
       dispatch({
-        type: 'SET_USER',
+        type: userActions.SET_USER,
+        // type: 'SET_USER',
         payload: user,
       });
     });
