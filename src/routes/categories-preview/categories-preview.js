@@ -5,7 +5,6 @@ import './categories-preview.styles.scss';
 
 const CategoriesPreview = () => {
   const { categories } = useContext(CategoriesContext);
-
   return (
     <div className='categories-container'>
       {Object.entries(categories).map(([category, products]) => {

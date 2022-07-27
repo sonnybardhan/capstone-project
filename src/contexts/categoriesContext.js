@@ -1,22 +1,43 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 import { getCategoriesAndDocuments } from '../utils/firebase';
 
 export const CategoriesContext = createContext({});
 
+const categoriesReducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_CATEGORIES':
+      return { ...state, categories: action.payload };
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
+
+const intitialCategoriesState = {
+  categories: {},
+};
+
 export const CategoriesContextProvider = ({ children }) => {
-  const [categories, setCategories] = useState({});
+  const [state, dispatch] = useReducer(
+    categoriesReducer,
+    intitialCategoriesState
+  );
+
+  const { categories } = state;
+
+  const getCategories = async () => {
+    const categoryMap = await getCategoriesAndDocuments();
+    dispatch({
+      type: 'SET_CATEGORIES',
+      payload: categoryMap,
+    });
+  };
 
   useEffect(() => {
-    const getCategoryMap = async () => {
-      const categoryMap = await getCategoriesAndDocuments();
-      setCategories(categoryMap);
-    };
-
-    getCategoryMap();
+    getCategories();
   }, []);
 
   return (
-    <CategoriesContext.Provider value={{ categories, setCategories }}>
+    <CategoriesContext.Provider value={{ categories }}>
       {children}
     </CategoriesContext.Provider>
   );
