@@ -1,5 +1,6 @@
 import { useReducer } from 'react';
 import { createContext, useEffect } from 'react';
+import { setCurrentUser } from '../store/users/user.action';
 import {
   onAuthStateChangedListener,
   createUserDocFromAuth,
@@ -34,7 +35,7 @@ export const UserContextProvider = ({ children }) => {
       if (!user) {
         createUserDocFromAuth(user);
       }
-      dispatch(createAction(userActions.SET_USER, user));
+      dispatch(setCurrentUser(user));
     });
     return unsubscribe;
   }, []);
