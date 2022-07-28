@@ -1,6 +1,4 @@
-const userActions = {
-  SET_USER: 'SET_USER',
-};
+import { userActions } from './user.types';
 
 const INITIAL_USER_STATE = {
   user: null,
