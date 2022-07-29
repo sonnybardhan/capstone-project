@@ -3,9 +3,7 @@ import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 import { useSelector } from 'react-redux';
 import CartIcon from '../../components/cart-icon/cart-icon';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown';
-import { useContext } from 'react';
 import { signOutUser } from '../../utils/firebase';
-import { CartContext } from '../../contexts/cartContext';
 import {
   NavigationContainer,
   LogoContainer,
@@ -13,10 +11,11 @@ import {
   NavLink,
 } from './navigation.styles.js';
 import { selectCurrentUser } from '../../store/users/user.selector';
+import { selectCart } from '../../store/cart/cart.selector';
 
 const Navigation = () => {
   const user = useSelector(selectCurrentUser);
-  const { cartIsOpen } = useContext(CartContext);
+  const { cartIsOpen } = useSelector(selectCart);
 
   return (
     <>
