@@ -5,11 +5,12 @@ import {
   removeProduct,
   decrementQuantity,
 } from '../../store/cart/cart.action';
-import { selectCart } from '../../store/cart/cart.selector';
+import { selectCart, selectCartItems } from '../../store/cart/cart.selector';
 import './checkout-item.styles.scss';
 
 const CheckoutItem = ({ item: cartItem }) => {
-  const { cartItems } = useSelector(selectCart);
+  // const { cartItems } = useSelector(selectCart);
+  const cartItems = useSelector(selectCartItems);
 
   const dispatch = useDispatch();
 
