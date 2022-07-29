@@ -11,11 +11,11 @@ import {
   NavLink,
 } from './navigation.styles.js';
 import { selectCurrentUser } from '../../store/users/user.selector';
-import { selectCart } from '../../store/cart/cart.selector';
+import { selectCartIsOpen } from '../../store/cart/cart.selector';
 
 const Navigation = () => {
   const user = useSelector(selectCurrentUser);
-  const { cartIsOpen } = useSelector(selectCart);
+  const cartIsOpen = useSelector(selectCartIsOpen);
 
   return (
     <>

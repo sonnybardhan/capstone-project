@@ -1,12 +1,3 @@
-export const selectCart = (state) => state.cart;
-
-/**
- selectCartItems 
- selectCartItemCount
- selectCartTotal
- selectCartIsOpen
- */
-
 export const selectCartItems = (state) => state.cart.cartItems;
 
 export const selectCartItemCount = (state) => {
@@ -14,7 +5,6 @@ export const selectCartItemCount = (state) => {
     (total, currentItem) => total + currentItem.quantity,
     0
   );
-  // state.cart.totalCartItems
 };
 
 export const selectCartTotal = (state) => {
@@ -22,7 +12,6 @@ export const selectCartTotal = (state) => {
     (total, { quantity, price }) => total + quantity * price,
     0
   );
-  // state.cart.totalCartAmount;
 };
 
 export const selectCartIsOpen = (state) => state.cart.cartIsOpen;

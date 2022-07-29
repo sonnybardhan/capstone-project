@@ -13,19 +13,9 @@ export const setCartIsOpen = (isOpen) => {
   return createAction(CART_ACTION_TYPES.SET_CART_IS_OPEN, !isOpen);
 };
 
-export const setTotalCartItems = (cartItems) => {
-  const count = getCartItemCount(cartItems);
-  return createAction(CART_ACTION_TYPES.SET_TOTAL_CART_ITEMS, count);
-};
-
-export const setTotalCartAmount = (cartItems) => {
-  const amount = calculateTotal(cartItems);
-  return createAction(CART_ACTION_TYPES.SET_TOTAL_AMOUNT, amount);
-};
-
 export const removeProduct = (cartItems, id) => {
   const filteredItems = cartItems.filter((item) => item.id !== id);
-  return setCartItems(filteredItems);
+  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, filteredItems);
 };
 
 export const decrementQuantity = (cartItems, id) => {
@@ -41,12 +31,6 @@ export const decrementQuantity = (cartItems, id) => {
     return removeProduct(cartItems, id);
   }
 };
-
-export const getCartItemCount = (cartItems) =>
-  cartItems.reduce((total, currentItem) => total + currentItem.quantity, 0);
-
-export const calculateTotal = (cartItems) =>
-  cartItems.reduce((total, { quantity, price }) => total + quantity * price, 0);
 
 const addToCart = (cartItems, productToAdd) => {
   if (!cartItems.length) {
