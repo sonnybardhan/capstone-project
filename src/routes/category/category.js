@@ -9,6 +9,7 @@ import { selectCategory } from '../../store/categories/categories.selector';
 const Category = () => {
   const categories = useSelector(selectCategory);
 
+  console.log('categories: ', categories);
   // const { categories } = useContext(CategoriesContext);
   const { category } = useParams();
   const [products, setProducts] = useState([]);
