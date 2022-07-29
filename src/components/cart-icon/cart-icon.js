@@ -14,7 +14,7 @@ const CartIcon = () => {
   const dispatch = useDispatch();
 
   const toggleCartIsOpen = () => {
-    dispatch(setCartIsOpen(cartIsOpen));
+    dispatch(setCartIsOpen(!cartIsOpen));
   };
 
   return (

@@ -2,15 +2,21 @@ import { createAction } from '../../utils/reducer.utils';
 import { CART_ACTION_TYPES } from './cart.types';
 
 export const setCartItems = (cartItems, productToAdd) => {
-  if (!productToAdd)
-    return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, cartItems);
-
-  const items = addToCart(cartItems, productToAdd);
-  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, items);
+  return createAction(
+    CART_ACTION_TYPES.SET_CART_ITEMS,
+    addToCart(cartItems, productToAdd)
+  );
 };
+// export const setCartItems = (cartItems, productToAdd) => {
+//   if (!productToAdd)
+//     return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, cartItems);
+
+//   const items = addToCart(cartItems, productToAdd);
+//   return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, items);
+// };
 
 export const setCartIsOpen = (isOpen) => {
-  return createAction(CART_ACTION_TYPES.SET_CART_IS_OPEN, !isOpen);
+  return createAction(CART_ACTION_TYPES.SET_CART_IS_OPEN, isOpen);
 };
 
 export const removeProduct = (cartItems, id) => {
