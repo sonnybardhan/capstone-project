@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FormInput from '../form-input/form-input';
-import Button from '../button/button';
+import Button, { BUTTON_TYPE_CLASSES } from '../button/button';
 import './sign-in-form.styles.scss';
 import {
   signInWithGooglePopup,
@@ -100,7 +100,7 @@ const SignInForm = () => {
           <Button
             type='button'
             disabled={disableSubmit}
-            buttonType='google'
+            buttonType={BUTTON_TYPE_CLASSES.google}
             onClick={signInWithGoogle}
           >
             Google Sign In

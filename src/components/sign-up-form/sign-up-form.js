@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FormInput from '../form-input/form-input';
-import Button from '../button/button';
+import Button, { BUTTON_TYPE_CLASSES } from '../button/button';
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocFromAuth,
@@ -114,7 +114,11 @@ const SignUpForm = () => {
           onChange={handleChange}
         />
 
-        <Button type='submit' disabled={disableSubmit} value='Submit'>
+        <Button
+          type={BUTTON_TYPE_CLASSES.google}
+          disabled={disableSubmit}
+          value='Submit'
+        >
           Sign Up
         </Button>
       </form>

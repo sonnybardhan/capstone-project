@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../button/button';
 import CartItem from '../cart-item/cart-item';
-import './cart-dropdown.styles.scss';
+import './cart-dropdown.styles.js';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -9,6 +9,11 @@ import {
   selectCartItems,
 } from '../../store/cart/cart.selector';
 import { setCartIsOpen } from '../../store/cart/cart.action';
+import {
+  CartDropdownContainer,
+  CartItemsContainer,
+  EmptyMessageContainer,
+} from './cart-dropdown.styles.js';
 
 const CartDropdown = () => {
   const cartItems = useSelector(selectCartItems);
@@ -22,16 +27,18 @@ const CartDropdown = () => {
   };
 
   return (
-    <div className='cart-dropdown-container'>
-      <div className='cart-items'>
-        {cartItems.length
-          ? cartItems.map((item) => {
-              return <CartItem key={item.id} cartItem={item} />;
-            })
-          : 'Your cart is empty'}
-      </div>
+    <CartDropdownContainer>
+      <CartItemsContainer>
+        {cartItems.length ? (
+          cartItems.map((item) => {
+            return <CartItem key={item.id} cartItem={item} />;
+          })
+        ) : (
+          <EmptyMessageContainer>Your cart is empty</EmptyMessageContainer>
+        )}
+      </CartItemsContainer>
       <Button onClick={handleClick}>Checkout</Button>
-    </div>
+    </CartDropdownContainer>
   );
 };
 

@@ -6,7 +6,15 @@ import {
   decrementQuantity,
 } from '../../store/cart/cart.action';
 import { selectCartItems } from '../../store/cart/cart.selector';
-import './checkout-item.styles.scss';
+import {
+  ArrowDiv,
+  CheckoutItemContainer,
+  ImageContainer,
+  NameSpan,
+  PriceSpan,
+  QuantitySpan,
+  RemoveBtnContainer,
+} from './checkout-item.styles';
 
 const CheckoutItem = ({ item: cartItem }) => {
   const cartItems = useSelector(selectCartItems);
@@ -27,25 +35,23 @@ const CheckoutItem = ({ item: cartItem }) => {
   };
 
   return (
-    <div className='checkout-item-container'>
+    <CheckoutItemContainer>
       <div className='image-container'>
         <img src={imageUrl} alt={name} />
       </div>
-      <span className='name'>{name}</span>
-      <span className='quantity'>
-        <div onClick={handleDecrement} className='arrow'>
+      <NameSpan>{name}</NameSpan>
+      <QuantitySpan>
+        <div className='arrow' onClick={handleDecrement}>
           &#10094;
         </div>
         <span className='value'>{quantity}</span>
-        <div onClick={handleIncrement} className='arrow'>
+        <div className='arrow' onClick={handleIncrement}>
           &#10095;
         </div>
-      </span>
-      <span className='price'>${price * quantity}</span>
-      <div className='remove-button' onClick={handleRemove}>
-        &#10005;
-      </div>
-    </div>
+      </QuantitySpan>
+      <PriceSpan>${price * quantity}</PriceSpan>
+      <RemoveBtnContainer onClick={handleRemove}>&#10005;</RemoveBtnContainer>
+    </CheckoutItemContainer>
   );
 };
 

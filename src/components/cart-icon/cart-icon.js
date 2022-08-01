@@ -1,5 +1,5 @@
 import React from 'react';
-import './cart-icon.styles.scss';
+import './cart-icon.styles.js';
 import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -7,6 +7,11 @@ import {
   selectCartItemCount,
 } from '../../store/cart/cart.selector';
 import { setCartIsOpen } from '../../store/cart/cart.action';
+import {
+  CartIconContainer,
+  ItemCount,
+  ShoppingIconBtn,
+} from './cart-icon.styles.js';
 
 const CartIcon = () => {
   const cartIsOpen = useSelector(selectCartIsOpen);
@@ -18,10 +23,11 @@ const CartIcon = () => {
   };
 
   return (
-    <div className='cart-icon-container' onClick={toggleCartIsOpen}>
-      <ShoppingIcon className='shopping-icon' />
-      <span className='item-count'>{totalCartItems}</span>
-    </div>
+    <CartIconContainer onClick={toggleCartIsOpen}>
+      {/* <ShoppingIcon className='shopping-icon' /> */}
+      <ShoppingIconBtn />
+      <ItemCount>{totalCartItems}</ItemCount>
+    </CartIconContainer>
   );
 };
 
