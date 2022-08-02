@@ -1,11 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
-import {
-  fetchCategoriesStartAsync,
-  setCategories,
-} from '../../store/categories/categories.action';
-import { getCategoriesAndDocuments } from '../../utils/firebase';
+import { fetchCategoriesStartAsync } from '../../store/categories/categories.action';
 import CategoriesPreview from '../categories-preview/categories-preview';
 import Category from '../category/category';
 import './shop.styles.scss';
