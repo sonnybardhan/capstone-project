@@ -11,7 +11,6 @@ import './categories-preview.styles.scss';
 const CategoriesPreview = () => {
   const categories = useSelector(selectCategory);
   const isLoading = useSelector(selectCategoriesIsLoading);
-  console.log('isLoading: ', isLoading);
   return (
     <div className='categories-container'>
       {isLoading ? (
