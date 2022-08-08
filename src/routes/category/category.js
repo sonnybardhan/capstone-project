@@ -27,9 +27,10 @@ const Category = () => {
         <Spinner />
       ) : (
         <CategoryContainer>
-          {products.map((product) => {
-            return <ProductCard key={product.id} product={product} />;
-          })}
+          {products &&
+            products.map((product) => {
+              return <ProductCard key={product.id} product={product} />;
+            })}
         </CategoryContainer>
       )}
     </>
