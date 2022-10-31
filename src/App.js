@@ -8,22 +8,26 @@ import { useEffect } from 'react';
 import {
   onAuthStateChangedListener,
   createUserDocFromAuth,
+  getCurrentUser,
 } from './utils/firebase';
 import { createAction } from './utils/reducer.utils';
 import { USER_ACTION_TYPES } from './store/users/user.types';
 import { useDispatch } from 'react-redux';
+import { checkUserSession } from './store/users/user.action';
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (!user) {
-        createUserDocFromAuth(user);
-      }
-      dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
-    });
-    return unsubscribe;
+    dispatch(checkUserSession());
+    // getCurrentUser().then((user) => console.log('user: ', user));
+    // const unsubscribe = onAuthStateChangedListener((user) => {
+    //   if (!user) {
+    //     createUserDocFromAuth(user);
+    //   }
+    //   dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
+    // });
+    // return unsubscribe;
   }, []);
 
   return (
